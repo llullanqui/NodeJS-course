@@ -1,5 +1,6 @@
 const Proyectos = require('../models/Proyectos');
 
+
 exports.proyectosHome = (req, res) => {
     res.render('index', {
         nombrePagina: 'Proyectos'
@@ -17,7 +18,7 @@ exports.nuevoProyecto = async (req, res) => {
     console.log(req.body);
 
     // Validar que tengamos algo en el input
-    const { nombre } = req.body;
+    const nombre  = req.body.nombre;
 
     let errores = [];
     if(!nombre) {
@@ -33,6 +34,11 @@ exports.nuevoProyecto = async (req, res) => {
     } else {
         // No hay errores
         // Insertar en base de datos
+
+        // Se quitó para usar Hooks en el modelo
+        // const url = Slug(nombre).toLowerCase();
+        // const proyecto = await Proyectos.create({ nombre, url });
+
         const proyecto = await Proyectos.create({ nombre });
         res.redirect('/');
     }
